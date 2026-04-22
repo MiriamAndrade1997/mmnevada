@@ -602,40 +602,37 @@
     }
 
     function finishOrder(){
-      if(cart.length === 0){
-        alert("Seu carrinho está vazio! Adicione itens antes de finalizar.");
-        return;
-      }
+  if(cart.length === 0){
+    alert("Seu carrinho está vazio! Adicione itens antes de finalizar.");
+    return;
+  }
 
-      let total = 0;
-      let message = "Olá! Pedido M&M Nevada 🍹❄️%0A";
-      message += "📌 Retirada no local%0A";
-      message += "📍 Rua Professor Francisco de Oliveira Porto, 579 – Apto 104, Brisamar – João Pessoa/PB%0A%0A";
+  let total = 0;
 
-      cart.forEach((item, i) => {
-        total += item.price;
-        message += `${i+1}x ${item.name} - ${item.price > 0 ? formatPrice(item.price) : "Consultar"}%0A`;
-      });
+  let message = "Olá! Pedido M&M Nevada 🍹❄️\n";
+  message += "📌 Retirada no local\n";
+  message += "📍 Rua Professor Francisco de Oliveira Porto, 579 – Apto 104, Brisamar – João Pessoa/PB\n\n";
 
-      const payment = document.getElementById("payment").value;
-      const notes = document.getElementById("notes").value.trim();
+  cart.forEach((item, i) => {
+    total += item.price;
+    message += `${i+1}x ${item.name} - ${item.price > 0 ? formatPrice(item.price) : "Consultar"}\n`;
+  });
 
-      message += "%0A";
-      message += `💳 Forma de pagamento: ${payment}%0A`;
+  const payment = document.getElementById("payment").value;
+  const notes = document.getElementById("notes").value.trim();
 
-      if(notes.length > 0){
-        message += `📝 Observações: ${notes}%0A`;
-      }
+  message += "\n";
+  message += `💳 Forma de pagamento: ${payment}\n`;
 
-      message += `💰 Total: ${formatPrice(total)}%0A`;
-      message += "%0AObrigado!";
+  if(notes.length > 0){
+    message += `📝 Observações: ${notes}\n`;
+  }
 
-      const whatsappNumber = "5583982150271";
-      const url = `https://wa.me/${whatsappNumber}?text=${message}`;
+  message += `💰 Total: ${formatPrice(total)}\n`;
+  message += "\nObrigado!";
 
-      window.open(url, "_blank");
-    }
-  </script>
+  const whatsappNumber = "5583982150271";
+  const url = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
 
-</body>
-</html>
+  window.open(url, "_blank");
+}
